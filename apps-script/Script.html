@@ -1,0 +1,108 @@
+<script>
+  (function () {
+    var form = document.getElementById('form');
+    var input = document.getElementById('phone');
+    var button = document.getElementById('submit');
+    var label = document.getElementById('submit-label');
+    var fieldError = document.getElementById('phone-error');
+    var result = document.getElementById('result');
+
+    var TIMEOUT_MS = 25000; // Apps Script kadang lambat "bangun"; lewat ini dianggap gagal
+    var busy = false;
+
+    // Harus sama dengan normalizePhone_ di Code.gs: dipakai agar pesan salah-ketik muncul cepat.
+    function isValidPhone(value) {
+      var d = String(value).replace(/[\s\-().]/g, '');
+      if (d.charAt(0) === '+') d = d.slice(1);
+      if (!/^\d+$/.test(d)) return false;
+      if (d.indexOf('62') === 0) { /* sudah 62... */ }
+      else if (d.charAt(0) === '0') d = '62' + d.slice(1);
+      else if (d.charAt(0) === '8') d = '62' + d;
+      else return false;
+      return /^628\d{8,11}$/.test(d);
+    }
+
+    function setBusy(value) {
+      busy = value;
+      button.disabled = value;
+      button.classList.toggle('is-loading', value);
+      label.textContent = value ? 'Memeriksa…' : 'Cek Status';
+    }
+
+    function setFieldError(message) {
+      fieldError.textContent = message;
+      fieldError.hidden = !message;
+      if (message) {
+        input.setAttribute('aria-invalid', 'true');
+        input.setAttribute('aria-describedby', 'phone-hint phone-error');
+      } else {
+        input.removeAttribute('aria-invalid');
+        input.setAttribute('aria-describedby', 'phone-hint');
+      }
+    }
+
+    function show(templateId, fill) {
+      var node = document.getElementById(templateId).content.cloneNode(true);
+      if (fill) fill(node);
+      result.innerHTML = '';
+      result.appendChild(node);
+    }
+
+    // Teks dari spreadsheet dimasukkan lewat textContent (bukan innerHTML), jadi aman
+    // walaupun ada peserta yang mengisi nama dengan kode HTML.
+    function render(res) {
+      var status = res && res.status;
+      if (status === 'found' && typeof res.name === 'string' && typeof res.nim === 'string') {
+        show('tpl-found', function (node) {
+          node.querySelector('[data-name]').textContent = res.name;
+          node.querySelector('[data-nim]').textContent = res.nim;
+          // Email hanya ditampilkan kalau ada; kalau kosong, barisnya tetap tersembunyi.
+          if (typeof res.email === 'string' && res.email) {
+            var emailEl = node.querySelector('[data-email]');
+            emailEl.textContent = res.email;
+            emailEl.hidden = false;
+            node.querySelector('[data-email-label]').hidden = false;
+          }
+        });
+      } else if (status === 'not_found') show('tpl-not-found');
+      else if (status === 'invalid') show('tpl-invalid');
+      else if (status === 'rate_limited') show('tpl-rate');
+      else show('tpl-error');
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (busy) return;
+
+      var value = input.value;
+      if (!isValidPhone(value)) {
+        result.innerHTML = '';
+        setFieldError('Nomor HP tidak valid. Contoh: 0812 3456 7890');
+        input.focus();
+        return;
+      }
+      setFieldError('');
+      result.innerHTML = '';
+      setBusy(true);
+
+      var finished = false;
+      function finish(res) {
+        if (finished) return;
+        finished = true;
+        clearTimeout(timer);
+        setBusy(false);
+        render(res);
+      }
+      var timer = setTimeout(function () { finish({ status: 'error' }); }, TIMEOUT_MS);
+
+      if (typeof google === 'undefined' || !google.script) {
+        finish({ status: 'error' }); // halaman dibuka di luar Apps Script
+        return;
+      }
+      google.script.run
+        .withSuccessHandler(finish)
+        .withFailureHandler(function () { finish({ status: 'error' }); })
+        .cekStatus(value);
+    });
+  })();
+</script>

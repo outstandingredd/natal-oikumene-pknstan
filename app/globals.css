@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------
+   TEMA WARNA & FONT
+   Nama di sini otomatis jadi class Tailwind, misalnya
+   --color-primary  →  bg-primary, text-primary, border-primary
+   ------------------------------------------------------------ */
+@theme inline {
+  /* Palet dari desain resmi Natal Oikumene (natal.docx) */
+  --color-primary: #214562; /* biru utama: navbar, hero, footer, teks */
+  --color-ink: #0c101c; /* biru malam hampir hitam: hover & latar terdalam */
+  --color-accent: #3386b8; /* biru sekunder: aksen, garis, ikon */
+  --color-sky: #9dd2ec; /* biru muda: teks aksen di atas biru tua */
+  --color-paper: #f9f3ee; /* putih hangat: latar halaman */
+  --color-paper-deep: #efe5db; /* putih hangat lebih gelap: pemisah antar bagian */
+  --color-gold: #c9962f; /* emas: garis & dekorasi */
+  --color-gold-light: #e8b95c; /* emas terang: teks/tombol di atas biru tua */
+  --color-gold-deep: #7d5710; /* emas tua: teks emas di atas putih hangat (kontras aman) */
+  --color-burgundy: #830219; /* merah anggur: pesan galat */
+  --color-evergreen: #043b2d; /* hijau tua: warna tambahan */
+
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+}
+
+/* Fokus keyboard: warna garis mengikuti warna teks, jadi terlihat di latar gelap maupun terang */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------
+   ANIMASI LAMPU NATAL
+   Menyala berurutan SEKALI saat halaman dibuka, lalu diam.
+   Dimatikan untuk pengguna yang memilih "kurangi gerakan".
+   ------------------------------------------------------------ */
+@keyframes light-up {
+  from {
+    opacity: 0.12;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.bulb {
+  animation: light-up 600ms ease-out both;
+  animation-delay: calc(var(--i) * 140ms + 300ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .bulb {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   SALJU (komponen: components/snow.tsx)
+   Serpihan putih dengan bayangan biru tipis supaya tetap terlihat
+   di latar biru tua maupun putih hangat.
+   ------------------------------------------------------------ */
+.snow {
+  position: fixed;
+  inset: 0;
+  z-index: 40; /* di bawah navbar (z-50), di atas konten */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.snow-flake {
+  position: absolute;
+  top: -10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(33, 69, 98, 0.45);
+  animation-name: snow-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@keyframes snow-fall {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(var(--drift, 0px), calc(100vh + 20px), 0);
+  }
+}
+
+@media (max-width: 639px) {
+  .snow-flake-extra {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snow {
+    display: none;
+  }
+}

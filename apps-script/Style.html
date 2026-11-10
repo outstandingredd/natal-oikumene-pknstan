@@ -1,0 +1,162 @@
+<style>
+  /* Warna dan font sama dengan website utama (app/globals.css). Nama variabel lama dipertahankan:
+     --forest = biru utama #214562, --pine = biru malam #0c101c. */
+  :root {
+    --forest: #214562;
+    --pine: #0c101c;
+    --cream: #f9f3ee;
+    --gold: #c9962f;
+    --gold-light: #e8b95c;
+    --gold-deep: #7d5710;
+    --danger: #830219;
+    --sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --serif: 'Newsreader', ui-serif, Georgia, serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--cream);
+    color: var(--forest);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+  .container { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
+  @media (min-width: 640px) { .container { padding: 0 2rem; } }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    background: var(--forest);
+    color: var(--cream);
+    border-bottom: 1px solid rgba(201, 150, 47, 0.3);
+  }
+  .site-header .container {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand { display: flex; align-items: center; gap: 0.75rem; color: inherit; text-decoration: none; }
+  .brand-mark { width: 2.75rem; height: 2.75rem; flex-shrink: 0; display: block; }
+  .brand-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 500; letter-spacing: -0.025em; }
+  .back-link {
+    color: rgba(249, 243, 238, 0.85); text-decoration: none; font-size: 0.95rem;
+    min-height: 2.75rem; display: inline-flex; align-items: center;
+    white-space: nowrap;
+  }
+  .back-link:hover { color: var(--cream); }
+
+  /* ---------- Hero ---------- */
+  .hero { background: var(--forest); color: var(--cream); overflow: hidden; }
+  .lights { display: block; width: 100%; height: 4rem; pointer-events: none; }
+  @media (min-width: 640px) { .lights { height: 5rem; } }
+
+  /* Lampu menyala berurutan sekali saat halaman dibuka, lalu diam. */
+  @keyframes light-up { from { opacity: 0.12; } to { opacity: 1; } }
+  .bulb { animation: light-up 600ms ease-out both; animation-delay: calc(var(--i) * 140ms + 300ms); }
+  @media (prefers-reduced-motion: reduce) { .bulb { animation: none; } }
+
+  /* Hanya padding atas-bawah: padding samping milik .container tidak boleh tertimpa. */
+  .hero-body { padding-top: 1.5rem; padding-bottom: 3.5rem; }
+  @media (min-width: 640px) { .hero-body { padding-top: 2rem; padding-bottom: 4.5rem; } }
+  h1 {
+    margin: 0;
+    font-family: var(--serif); font-weight: 500;
+    font-size: 2.5rem; line-height: 1.05; letter-spacing: -0.025em;
+  }
+  @media (min-width: 640px) { h1 { font-size: 3.5rem; } }
+  .lead {
+    margin: 1.25rem 0 0; max-width: 56ch;
+    font-size: 1.125rem; line-height: 1.625; color: rgba(249, 243, 238, 0.85);
+  }
+
+  /* ---------- Form ---------- */
+  .check { padding: 3rem 0 4rem; flex: 1; }
+  @media (min-width: 640px) { .check { padding: 4rem 0 6rem; } }
+  .check-inner { max-width: 28rem; }
+
+  label { display: block; font-size: 1.125rem; font-weight: 500; }
+  .hint { margin: 0.25rem 0 0; color: rgba(33, 69, 98, 0.7); }
+  input[type='tel'] {
+    display: block; width: 100%; min-height: 3rem; margin-top: 0.75rem;
+    padding: 0 1rem;
+    font: inherit; font-size: 1.125rem; color: var(--forest);
+    background: #fff; border: 1px solid rgba(33, 69, 98, 0.4); border-radius: 0.75rem;
+  }
+  input[type='tel']::placeholder { color: rgba(33, 69, 98, 0.4); }
+  input[aria-invalid='true'] { border-color: var(--danger); }
+  .field-error { margin: 0.5rem 0 0; color: var(--danger); font-weight: 500; }
+
+  /* ---------- Tombol ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 3rem; padding: 0.75rem 1.5rem;
+    border: 0; border-radius: 9999px;
+    font: inherit; font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer;
+    transition: background-color 0.15s;
+  }
+  .btn-primary { background: var(--forest); color: var(--cream); margin-top: 1.25rem; width: 100%; }
+  .btn-primary:hover { background: var(--pine); }
+  .btn-primary:disabled { opacity: 0.7; cursor: default; }
+  .btn-gold { background: var(--gold-light); color: var(--forest); margin-top: 1rem; }
+  .btn-gold:hover { background: #f0cd85; }
+  @media (min-width: 640px) { .btn-primary { width: auto; } }
+
+  .spinner { width: 1.25rem; height: 1.25rem; display: none; }
+  .is-loading .spinner { display: block; }
+  @media (prefers-reduced-motion: no-preference) {
+    .spinner { animation: spin 0.9s linear infinite; }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Hasil ---------- */
+  .result { margin-top: 2rem; }
+  .result:empty { display: none; }
+  .result svg.icon { width: 1.75rem; height: 1.75rem; display: block; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .result h2 { margin: 0.75rem 0 0; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.25; }
+  .result p { margin: 0.5rem 0 0; max-width: 52ch; line-height: 1.625; }
+
+  /* Ditemukan: panel hijau, sama dengan panel hasil di website */
+  .found { background: var(--forest); color: var(--cream); border-radius: 1rem; padding: 1.5rem; }
+  .found svg.icon { color: var(--gold-light); }
+  .found dl { margin: 1rem 0 0; }
+  .found dt { color: rgba(249, 243, 238, 0.65); }
+  .found dd { margin: 0 0 0.75rem; font-size: 1.125rem; font-weight: 500; overflow-wrap: anywhere; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    padding: 0.125rem 0.75rem; border-radius: 9999px;
+    background: var(--gold-light); color: var(--forest);
+    font-size: 1rem; font-weight: 600;
+  }
+  .found .next { margin-top: 1.25rem; color: rgba(249, 243, 238, 0.9); }
+
+  /* Pesan lain: garis emas di kiri, sama dengan bagian "Makna Tema" dan panel pesan di website */
+  .notice { border-left: 2px solid var(--gold); padding-left: 1.25rem; }
+  .notice svg.icon { width: 1.5rem; height: 1.5rem; color: var(--gold-deep); }
+  .notice h2 { margin-top: 0.5rem; }
+
+  /* ---------- Footer ---------- */
+  .site-footer { background: var(--forest); color: var(--cream); }
+  .footer-top { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  .footer-tagline {
+    margin: 1.25rem 0 0; max-width: 20rem;
+    font-family: var(--serif); font-style: italic; font-size: 1.125rem; line-height: 1.375;
+    color: var(--gold-light);
+  }
+  .footer-bottom { border-top: 1px solid rgba(249, 243, 238, 0.15); }
+  .footer-bottom .container { padding-top: 1.5rem; padding-bottom: 1.5rem; font-size: 0.875rem; color: rgba(249, 243, 238, 0.65); }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+</style>
