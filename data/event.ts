@@ -9,21 +9,21 @@ import type { EventInfo } from "@/types";
 export const event: EventInfo = {
   name: "Natal Oikumene",
   fullName: "Natal Oikumene PKN STAN",
-  tagline: "Merayakan Kasih, Menghadirkan Pengharapan",
+  tagline: "LUX IN TENEBRIS - The Light No Darkness Can Overcome",
 
   // Draf deskripsi. Silakan ubah sesuai gaya bahasa panitia.
   description:
-    "Perayaan Natal bersama mahasiswa lintas gereja di PKN STAN. Satu ibadah, satu perayaan, untuk saling menguatkan di penghujung tahun.",
+    "Perayaan Natal bersama seluruh mahasiswa PKN STAN. Satu ibadah, satu perayaan, untuk saling menguatkan di penghujung tahun.",
 
   campusName: "PKN STAN",
 
-  date: "[Tanggal belum ditentukan]",
-  time: "[Waktu belum ditentukan]",
-  location: "[Lokasi belum ditentukan]",
+  date: "7 Februri 2027",
+  time: "15.30 WIB",
+  location: "Gedung G PKN STAN",
 
   // Draf bagian "Tentang". Tiap string menjadi satu paragraf.
   about: [
-    "Natal Oikumene adalah perayaan Natal yang mempertemukan mahasiswa dari berbagai gereja dan persekutuan di PKN STAN dalam satu ibadah bersama.",
+    "Natal Oikumene adalah perayaan Natal yang diselenggarakan oleh PMK dan KMK STAN yamg bertujuan untuk mengajak seluruh mahasiswa di PKN STAN berkumpul dalam satu ibadah bersama merayakan natal.",
     "Website ini memuat informasi acara, rundown, panduan liturgi, dan cara mendaftar, supaya mahasiswa, panitia, dan tamu undangan tahu apa yang perlu disiapkan.",
   ],
 
@@ -43,10 +43,10 @@ export const event: EventInfo = {
     },
     {
       text: "Di tengah keadaan tersebut, kelahiran Kristus menjadi tanda hadirnya pengharapan bagi dunia. Terang-Nya tidak bergantung pada keadaan dunia yang harus terlebih dahulu menjadi terang. Sebaliknya, Kristus hadir justru di tengah kegelapan untuk memberikan keselamatan dan kehidupan.",
-      highlight: ["hadirnya pengharapan bagi dunia", "justru di tengah kegelapan"],
+      highlight: ["hadirnya pengharapan bagi dunia"],
     },
   ],
-  // Ayat pada poster panitia (Yohanes 1:5).
+  // Ayat (Yohanes 1:5).
   themeVerse: "Terang itu bercahaya di dalam kegelapan, dan kegelapan itu tidak menguasainya.",
   themeVerseRef: "Yohanes 1:5",
 
@@ -56,9 +56,9 @@ export const event: EventInfo = {
   registrationUrl: "https://forms.gle/cWsxKrxgnP8wQ9SU6",
 
   contact: {
-    whatsapp: "[Nomor WhatsApp panitia]",
+    whatsapp: "089505045019",
     email: "[Email panitia]",
-    instagram: "[@instagram_panitia]",
+    instagram: "@natal.oikumene",
   },
 
   // Ditulis manual (bukan new Date()) supaya halaman tetap statis dan cepat.

@@ -94,7 +94,7 @@ export default function Home() {
                 {registerLink.label}
               </ButtonLink>
               <ButtonLink href="#tentang" variant="outlineLight">
-                Jelajahi Informasi
+                Lihat Selengkapnya
               </ButtonLink>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function Home() {
             <Timeline items={rundown.slice(0, 4)} />
           </div>
           {isRundownPlaceholder && (
-            <p className="mt-6 text-sm text-paper/55">Jadwal ini masih contoh. Rundown resmi akan diumumkan panitia.</p>
+            <p className="mt-6 text-sm text-paper/55"> </p>
           )}
         </Container>
       </section>
@@ -195,7 +195,7 @@ export default function Home() {
         <Container>
           <div data-reveal>
             <p className="eyebrow">Dokumentasi</p>
-            <h2 id="judul-galeri" className="section-title">Galeri</h2>
+            <h2 id="judul-galeri" className="section-title">Galeri Natal</h2>
           </div>
           <div className="mt-10">
             <Gallery />
@@ -217,9 +217,9 @@ export default function Home() {
             className="glass relative overflow-hidden px-6 py-12 text-center sm:px-12 sm:py-16"
             style={{ backgroundImage: "radial-gradient(ellipse 70% 90% at 50% 120%, rgb(232 185 92 / 0.28), transparent 70%)" }}
           >
-            <h2 id="judul-daftar" className="section-title !mt-0">Daftar untuk ikut {event.name}</h2>
+            <h2 id="judul-daftar" className="section-title !mt-0">Daftar {event.name} PKN STAN</h2>
             <p className="mx-auto mt-4 max-w-[48ch] text-lg leading-relaxed text-paper/80">
-              Pendaftaran dilakukan lewat formulir resmi panitia. Sudah mendaftar? Kamu bisa mengecek apakah datamu sudah tercatat.
+              Silahkan melakukan pendaftaran melalui formulir resmi panitia. Lupa sudah daftar atau belum? Kamu bisa mengecek apakah datamu sudah tercatat.
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
               <ButtonLink href={registerLink.href} external>
@@ -238,12 +238,11 @@ export default function Home() {
         <Container>
           <div data-reveal>
             <h2 id="judul-kontak" className="section-title !mt-0">Kontak Panitia</h2>
-            <p className="mt-3 text-lg text-paper/80">Ada pertanyaan soal acara atau pendaftaran? Hubungi panitia.</p>
+            <p className="mt-3 text-lg text-paper/80">Jika ada pertanyaan soal acara atau pendaftaran? Silahkan hubungi panitia.</p>
           </div>
           <ul className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
               { icon: MessageCircle, label: "WhatsApp", value: event.contact.whatsapp },
-              { icon: Mail, label: "Email", value: event.contact.email },
               { icon: AtSign, label: "Instagram", value: event.contact.instagram },
             ].map(({ icon: Icon, label, value }, i) => (
               <li key={label} data-reveal style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties} className="glass flex items-center gap-4 p-5">

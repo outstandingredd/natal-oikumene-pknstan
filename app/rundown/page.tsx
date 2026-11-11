@@ -13,7 +13,7 @@ export default function Page() {
         <h1 className="section-title">Rundown Acara</h1>
         {isRundownPlaceholder && (
           <p className="mt-4 max-w-[52ch] text-paper/70">
-            Jadwal di bawah ini masih contoh. Rundown resmi akan diumumkan panitia.
+            Rundown resmi akan diumumkan panitia.
           </p>
         )}
       </div>

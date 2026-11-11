@@ -10,7 +10,7 @@ export default function Page() {
     <Container className="py-14 sm:py-20">
       <div data-reveal>
         <p className="eyebrow">FAQ</p>
-        <h1 className="section-title">Pertanyaan yang Sering Diajukan</h1>
+        <h1 className="section-title">Frequently Asked Question</h1>
         <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-paper/75">
           Belum menemukan jawabannya? Hubungi panitia lewat kontak di halaman Beranda.
         </p>

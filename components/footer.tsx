@@ -46,11 +46,7 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-paper/80">
             <li className="flex items-start gap-3">
               <MessageCircle className="mt-0.5 size-5 shrink-0 text-gold-light" aria-hidden="true" />
-              <span>{event.contact.whatsapp}</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Mail className="mt-0.5 size-5 shrink-0 text-gold-light" aria-hidden="true" />
-              <span>{event.contact.email}</span>
+              <span>Whatsapp: {event.contact.whatsapp} (Claira)</span>
             </li>
             <li className="flex items-start gap-3">
               <AtSign className="mt-0.5 size-5 shrink-0 text-gold-light" aria-hidden="true" />

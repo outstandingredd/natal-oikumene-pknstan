@@ -4,11 +4,11 @@
 
 // Link tombol "Lihat Semua Foto". INI MASIH PLACEHOLDER, bukan link final.
 // Ganti dengan link album asli (Google Drive / Google Photos / dll).
-export const GALLERY_URL = "https://example.com";
+export const GALLERY_URL = "https://drive.google.com/";
 
 export type GalleryPhoto = {
-  src?: string; // contoh: "/galeri/foto-1.jpg". Kosong = tampil kotak placeholder.
-  alt: string; // deskripsi singkat foto (untuk pembaca layar)
+  src?: ""; // contoh: "/galeri/foto-1.jpg". Kosong = tampil kotak placeholder.
+  alt: ""; // deskripsi singkat foto (untuk pembaca layar)
 };
 
 // Cara mengganti foto:
@@ -16,8 +16,8 @@ export type GalleryPhoto = {
 // 2. Isi `src` dengan "/galeri/nama-file.jpg" dan ubah `alt`.
 // Susunan tampilan menyesuaikan jumlahnya; foto pertama tampil paling besar. Disarankan 3–5 foto.
 export const galleryPhotos: GalleryPhoto[] = [
-  { alt: "Dokumentasi Natal Oikumene, foto 1" },
-  { alt: "Dokumentasi Natal Oikumene, foto 2" },
+  { src: "/galeri/natalall.jpeg", alt: "All Natal" },
+  { src: "/galeri/gambar1.png", alt: "Firstgath regsum 2026"},
   { alt: "Dokumentasi Natal Oikumene, foto 3" },
   { alt: "Dokumentasi Natal Oikumene, foto 4" },
   { alt: "Dokumentasi Natal Oikumene, foto 5" },

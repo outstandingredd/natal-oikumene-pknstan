@@ -8,6 +8,12 @@ export const isRundownPlaceholder = true;
 // Ganti tiap item dengan jadwal sebenarnya; tambah atau hapus item sesukamu.
 export const rundown: RundownItem[] = [
   {
+    time: "[14.00]",
+    title: "Open Gate",
+    description: "[Deskripsi kegiatan]",
+    pic: "[Penanggung jawab]",
+  },
+  {
     time: "[00.00]",
     title: "Registrasi dan penyambutan",
     description: "[Deskripsi kegiatan]",
