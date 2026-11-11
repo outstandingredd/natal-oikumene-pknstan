@@ -7,8 +7,8 @@
 export const GALLERY_URL = "https://drive.google.com/";
 
 export type GalleryPhoto = {
-  src?: ""; // contoh: "/galeri/foto-1.jpg". Kosong = tampil kotak placeholder.
-  alt: ""; // deskripsi singkat foto (untuk pembaca layar)
+  src?: string; // contoh: "/galeri/foto-1.jpg". Kosong = tampil kotak placeholder.
+  alt: string; // deskripsi singkat foto (untuk pembaca layar)
 };
 
 // Cara mengganti foto:
