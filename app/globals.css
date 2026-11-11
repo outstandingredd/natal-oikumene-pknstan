@@ -18,78 +18,174 @@
   --color-gold-deep: #7d5710; /* emas tua: teks emas di atas putih hangat (kontras aman) */
   --color-burgundy: #830219; /* merah anggur: pesan galat */
   --color-evergreen: #043b2d; /* hijau tua: warna tambahan */
+  --color-night: #0c101c; /* dasar latar */
 
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
 }
 
+/* ------------------------------------------------------------
+   DASAR
+   Satu latar malam untuk seluruh halaman (lihat components/sky.tsx).
+   Variasi antarbagian dibuat lewat kartu, cahaya, dan garis, bukan lewat warna latar yang berbeda.
+   ------------------------------------------------------------ */
 html {
-  scroll-behavior: smooth;
+  background: var(--color-night);
+  scroll-padding-top: 5rem; /* supaya judul bagian tidak tertutup navbar saat lompat ke #galeri dsb. */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  background: var(--color-paper);
-  color: var(--color-primary);
+  background: var(--color-night);
+  color: rgb(249 243 238 / 0.88);
   font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Fokus keyboard: warna garis mengikuti warna teks, jadi terlihat di latar gelap maupun terang */
+::selection {
+  background: var(--color-gold-light);
+  color: var(--color-night);
+}
+
 :focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--color-gold-light);
   outline-offset: 3px;
 }
 
 /* ------------------------------------------------------------
-   ANIMASI LAMPU NATAL
-   Menyala berurutan SEKALI saat halaman dibuka, lalu diam.
-   Dimatikan untuk pengguna yang memilih "kurangi gerakan".
+   KOMPONEN BERSAMA (dalam @layer components agar class Tailwind tetap bisa menimpa)
    ------------------------------------------------------------ */
-@keyframes light-up {
-  from {
-    opacity: 0.12;
+@layer components {
+  /* Judul kecil di atas judul bagian */
+  .eyebrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-sky);
   }
-  to {
-    opacity: 1;
-  }
-}
 
-.bulb {
-  animation: light-up 600ms ease-out both;
-  animation-delay: calc(var(--i) * 140ms + 300ms);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  /* Judul bagian */
+  .section-title {
+    margin-top: 0.75rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 6.5vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-paper);
   }
-  .bulb {
-    animation: none;
+
+  /* Kartu kaca: semi-transparan, garis tipis, blur halus */
+  .glass {
+    background: linear-gradient(160deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.03));
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: 1.25rem;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 40px -18px rgb(0 0 0 / 0.6);
+  }
+
+  .glass-hover {
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .glass-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgb(232 185 92 / 0.45);
+    box-shadow: 0 18px 48px -16px rgb(232 185 92 / 0.25);
+  }
+
+  /* Garis tipis berpendar emas, pemisah antarbagian */
+  .glow-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(232 185 92 / 0.7), transparent);
+  }
+
+  /* Sorotan kata penting */
+  .mark-gold {
+    color: var(--color-gold-light);
+    background: linear-gradient(transparent 62%, rgb(232 185 92 / 0.22) 62%);
+    border-radius: 2px;
+  }
+
+  /* Tombol: umpan balik saat hover/tekan/tap */
+  .btn-press {
+    transition: transform 0.2s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease,
+      opacity 0.2s ease;
+  }
+  .btn-press:hover {
+    transform: translateY(-1px) scale(1.02);
+  }
+  .btn-press:active {
+    transform: scale(0.97);
+    opacity: 0.9;
   }
 }
 
 /* ------------------------------------------------------------
-   SALJU (komponen: components/snow.tsx)
-   Serpihan putih dengan bayangan biru tipis supaya tetap terlihat
-   di latar biru tua maupun putih hangat.
+   MUNCUL SAAT SCROLL (digerakkan oleh components/reveal-observer.tsx)
+   Elemen bertanda data-reveal tersembunyi dulu, lalu naik pelan saat masuk layar.
+   Hanya aktif kalau JavaScript hidup dan pengguna tidak memilih "kurangi gerakan":
+   di luar itu semua konten langsung tampil.
    ------------------------------------------------------------ */
-.snow {
-  position: fixed;
-  inset: 0;
-  z-index: 40; /* di bawah navbar (z-50), di atas konten */
-  overflow: hidden;
-  pointer-events: none;
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal][data-visible] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.snow-flake {
+/* ------------------------------------------------------------
+   LANGIT MALAM (components/sky.tsx)
+   Semua animasi hanya memakai transform dan opacity supaya ringan di HP.
+   Lapisan ini di belakang konten (z-index 0) dan tidak bisa diklik.
+   ------------------------------------------------------------ */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 45% at 50% -8%, rgb(51 134 184 / 0.38), transparent 72%),
+    radial-gradient(55% 40% at 88% 38%, rgb(33 69 98 / 0.55), transparent 72%),
+    radial-gradient(60% 40% at 8% 70%, rgb(33 69 98 / 0.45), transparent 72%),
+    radial-gradient(80% 38% at 50% 112%, rgb(232 185 92 / 0.2), transparent 72%),
+    linear-gradient(180deg, #0c101c 0%, #10243a 52%, #0c101c 100%);
+}
+
+.snow-big,
+.snow-dot {
   position: absolute;
-  top: -10px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 3px rgba(33, 69, 98, 0.45);
+  top: -120px;
+  color: #fff;
   animation-name: snow-fall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   will-change: transform;
+}
+.snow-big svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: snow-spin linear infinite;
+  animation-duration: inherit;
+}
+.snow-dot {
+  top: -10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px rgb(157 210 236 / 0.7);
 }
 
 @keyframes snow-fall {
@@ -97,18 +193,74 @@ body {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(var(--drift, 0px), calc(100vh + 20px), 0);
+    transform: translate3d(var(--drift, 0px), calc(100vh + 240px), 0);
+  }
+}
+@keyframes snow-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
+.star {
+  position: absolute;
+  color: var(--color-gold-light);
+  animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.1);
+  }
+}
+
+/* HP: kurangi jumlah partikel */
 @media (max-width: 639px) {
-  .snow-flake-extra {
+  .snow-extra {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .snow {
+  .snow-big,
+  .snow-dot {
     display: none;
+  }
+  .star {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* Bintang jatuh di hero */
+.comet {
+  transform-origin: 100% 0;
+  animation: comet-glide 9s ease-in-out infinite;
+}
+@keyframes comet-glide {
+  0%,
+  62%,
+  100% {
+    opacity: 0;
+    transform: translate3d(40px, -24px, 0);
+  }
+  70% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0.9;
+    transform: translate3d(-46px, 26px, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .comet {
+    animation: none;
+    opacity: 0.85;
+    transform: none;
   }
 }

@@ -25,7 +25,8 @@ export type StatusResult =
   | { status: "error" }; // backend gagal atau balasannya tidak dikenali
 
 export type EventInfo = {
-  name: string;
+  name: string; // nama pendek (navbar, footer)
+  fullName: string; // nama lengkap (hero, judul halaman)
   tagline: string;
   description: string;
   campusName: string;
@@ -35,7 +36,9 @@ export type EventInfo = {
   about: string[]; // tiap item = satu paragraf
   themeTitle: string;
   themeTagline: string; // kalimat Inggris di bawah judul tema
-  themeMeaning: string[]; // tiap string = satu butir makna tema
+  themeMeaning: { text: string; highlight: string[] }[]; // tiap item = satu butir makna tema
+  themeVerse: string;
+  themeVerseRef: string;
   registrationUrl: string;
   contact: {
     whatsapp: string;

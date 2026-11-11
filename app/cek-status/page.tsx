@@ -9,10 +9,9 @@ export const metadata: Metadata = { title: "Cek Status Pendaftaran" };
 export default function CekStatusPage() {
   return (
     <Container className="py-16 sm:py-24">
-      <h1 className="font-serif text-4xl leading-tight sm:text-5xl">
-        Cek Status Pendaftaran
-      </h1>
-      <p className="mt-4 max-w-[52ch] text-lg leading-relaxed">
+      <p className="eyebrow">Pendaftaran</p>
+      <h1 className="section-title">Cek Status Pendaftaran</h1>
+      <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-paper/75">
         Layanan pengecekan belum aktif. Silakan coba lagi nanti atau hubungi panitia.
       </p>
     </Container>

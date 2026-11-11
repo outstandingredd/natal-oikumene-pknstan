@@ -9,7 +9,7 @@ export function Footer() {
   const links = [...navLinks, registerLink];
 
   return (
-    <footer className="bg-primary text-paper">
+    <footer className="relative z-10 mt-8 border-t border-white/10 bg-night/70 text-paper backdrop-blur-md">
       <Container className="grid gap-12 py-14 md:grid-cols-[1.4fr_1fr_1.2fr]">
         <div>
           <Brand />
@@ -60,7 +60,7 @@ export function Footer() {
         </div>
       </Container>
 
-      <div className="border-t border-paper/15">
+      <div className="border-t border-white/10">
         <Container className="py-6 text-sm text-paper/65">
           © {event.copyrightYear} Panitia {event.name} {event.campusName}. Seluruh hak dilindungi.
         </Container>

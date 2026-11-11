@@ -6,8 +6,9 @@ export const navLinks: NavLink[] = [
   { label: "Beranda", href: "/" },
   { label: "Rundown Acara", href: "/rundown" },
   { label: "Panduan Liturgi", href: "/liturgi" },
-  // /cek-status diteruskan ke halaman Google Apps Script (lihat next.config.ts).
+  { label: "Galeri", href: "/#galeri" },
   { label: "FAQ", href: "/faq" },
+  // /cek-status diteruskan ke halaman Google Apps Script (lihat next.config.ts).
   { label: "Cek Status Pendaftaran", href: "/cek-status" },
 ];
 

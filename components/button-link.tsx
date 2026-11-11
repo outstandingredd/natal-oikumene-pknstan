@@ -2,8 +2,8 @@ import Link from "next/link";
 
 // Tiga gaya tombol. Pilih lewat prop `variant`.
 const variants = {
-  gold: "bg-gold-light text-primary hover:bg-paper",
-  outlineLight: "border border-paper/40 text-paper hover:bg-paper/10",
+  gold: "bg-gold-light text-night shadow-[0_0_28px_-6px_rgb(232_185_92_/_0.7)] hover:bg-[#f3cf84] hover:shadow-[0_0_36px_-4px_rgb(232_185_92_/_0.9)]",
+  outlineLight: "border border-paper/40 text-paper hover:border-sky/70 hover:bg-paper/10",
   outlineDark: "border border-primary/40 text-primary hover:bg-primary/5",
 };
 
@@ -24,7 +24,7 @@ export function ButtonLink({
   onClick,
   children,
 }: Props) {
-  const classes = `inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-base font-semibold transition-colors ${variants[variant]} ${className}`;
+  const classes = `inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-base font-semibold btn-press ${variants[variant]} ${className}`;
 
   if (external) {
     return (
