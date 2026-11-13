@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AtSign, Mail, MessageCircle } from "lucide-react";
+import { contactHref, type ContactKind } from "@/lib/contact";
 import { event } from "@/data/event";
 import { navLinks, registerLink } from "@/data/nav";
 import { Brand } from "@/components/brand";
@@ -43,15 +44,36 @@ export function Footer() {
 
         <div>
           <h2 className="font-serif text-lg">Hubungi panitia</h2>
-          <ul className="mt-4 space-y-3 text-paper/80">
-            <li className="flex items-start gap-3">
-              <MessageCircle className="mt-0.5 size-5 shrink-0 text-gold-light" aria-hidden="true" />
-              <span>Whatsapp: {event.contact.whatsapp} (Claira)</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <AtSign className="mt-0.5 size-5 shrink-0 text-gold-light" aria-hidden="true" />
-              <span>Instagram: {event.contact.instagram}</span>
-            </li>
+          <ul className="mt-4 space-y-1 text-paper/80">
+            {(
+              [
+                { kind: "whatsapp", icon: MessageCircle, text: `Whatsapp: ${event.contact.whatsapp} (Frederick)`, value: event.contact.whatsapp },
+                { kind: "instagram", icon: AtSign, text: `Instagram: ${event.contact.instagram}`, value: event.contact.instagram },
+              ] as { kind: ContactKind; icon: typeof Mail; text: string; value: string }[]
+            ).map(({ kind, icon: Icon, text, value }) => {
+              const href = contactHref(kind, value);
+              const inner = (
+                <>
+                  <Icon className="mt-0.5 size-5 shrink-0 text-gold-light" aria-hidden="true" />
+                  <span className="break-words">{text}</span>
+                </>
+              );
+              return (
+                <li key={kind}>
+                  {href ? (
+                    <a
+                      href={href}
+                      {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className="flex min-h-11 items-start gap-3 py-2 transition-colors hover:text-gold-light"
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <div className="flex items-start gap-3 py-2">{inner}</div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </Container>

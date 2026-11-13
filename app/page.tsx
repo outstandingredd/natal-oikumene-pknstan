@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CalendarDays, Clock, MapPin, Star, CloudMoon, Sunrise, Quote, AtSign, Mail, MessageCircle, Images } from "lucide-react";
 import { event } from "@/data/event";
 import { registerLink } from "@/data/nav";
+import { contactHref, type ContactKind } from "@/lib/contact";
 import { rundown, isRundownPlaceholder } from "@/data/rundown";
 import { GALLERY_URL } from "@/data/gallery";
 import { ButtonLink } from "@/components/button-link";
@@ -94,7 +95,7 @@ export default function Home() {
                 {registerLink.label}
               </ButtonLink>
               <ButtonLink href="#tentang" variant="outlineLight">
-                Lihat Selengkapnya
+                Jelajahi Informasi
               </ButtonLink>
             </div>
           </div>
@@ -185,7 +186,7 @@ export default function Home() {
             <Timeline items={rundown.slice(0, 4)} />
           </div>
           {isRundownPlaceholder && (
-            <p className="mt-6 text-sm text-paper/55"> </p>
+            <p className="mt-6 text-sm text-paper/55">Rundown resmi akan segera diumumkan panitia</p>
           )}
         </Container>
       </section>
@@ -217,9 +218,9 @@ export default function Home() {
             className="glass relative overflow-hidden px-6 py-12 text-center sm:px-12 sm:py-16"
             style={{ backgroundImage: "radial-gradient(ellipse 70% 90% at 50% 120%, rgb(232 185 92 / 0.28), transparent 70%)" }}
           >
-            <h2 id="judul-daftar" className="section-title !mt-0">Daftar {event.name} PKN STAN</h2>
+            <h2 id="judul-daftar" className="section-title !mt-0">Daftar untuk ikut {event.name}</h2>
             <p className="mx-auto mt-4 max-w-[48ch] text-lg leading-relaxed text-paper/80">
-              Silahkan melakukan pendaftaran melalui formulir resmi panitia. Lupa sudah daftar atau belum? Kamu bisa mengecek apakah datamu sudah tercatat.
+              Pendaftaran dilakukan lewat formulir resmi panitia. Sudah mendaftar? Kamu bisa mengecek apakah datamu sudah tercatat.
             </p>
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
               <ButtonLink href={registerLink.href} external>
@@ -238,21 +239,42 @@ export default function Home() {
         <Container>
           <div data-reveal>
             <h2 id="judul-kontak" className="section-title !mt-0">Kontak Panitia</h2>
-            <p className="mt-3 text-lg text-paper/80">Jika ada pertanyaan soal acara atau pendaftaran? Silahkan hubungi panitia.</p>
+            <p className="mt-3 text-lg text-paper/80">Ada pertanyaan soal acara atau pendaftaran? Hubungi panitia.</p>
           </div>
           <ul className="mt-8 grid gap-4 sm:grid-cols-3">
-            {[
-              { icon: MessageCircle, label: "WhatsApp", value: event.contact.whatsapp },
-              { icon: AtSign, label: "Instagram", value: event.contact.instagram },
-            ].map(({ icon: Icon, label, value }, i) => (
-              <li key={label} data-reveal style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties} className="glass flex items-center gap-4 p-5">
-                <Icon className="size-6 shrink-0 text-gold-light" aria-hidden="true" />
-                <div className="min-w-0">
-                  <p className="text-xs uppercase tracking-widest text-paper/55">{label}</p>
-                  <p className="break-words text-paper">{value}</p>
-                </div>
-              </li>
-            ))}
+            {(
+              [
+                { kind: "whatsapp", icon: MessageCircle, label: "WhatsApp", value: event.contact.whatsapp },  
+                { kind: "instagram", icon: AtSign, label: "Instagram", value: event.contact.instagram },
+              ] as { kind: ContactKind; icon: typeof Mail; label: string; value: string }[]
+            ).map(({ kind, icon: Icon, label, value }, i) => {
+              const href = contactHref(kind, value);
+              const content = (
+                <>
+                  <Icon className="size-6 shrink-0 text-gold-light" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <p className="text-xs uppercase tracking-widest text-paper/55">{label}</p>
+                    <p className="break-words text-paper">{value}</p>
+                  </div>
+                </>
+              );
+              return (
+                <li key={label} data-reveal style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}>
+                  {href ? (
+                    <a
+                      href={href}
+                      {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      aria-label={`${label}: ${value}`}
+                      className="glass glass-hover flex min-h-16 items-center gap-4 p-5"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <div className="glass flex min-h-16 items-center gap-4 p-5">{content}</div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </Container>
       </section>

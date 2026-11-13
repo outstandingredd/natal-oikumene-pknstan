@@ -17,8 +17,8 @@ export type GalleryPhoto = {
 // Susunan tampilan menyesuaikan jumlahnya; foto pertama tampil paling besar. Disarankan 3–5 foto.
 export const galleryPhotos: GalleryPhoto[] = [
   { src: "/galeri/natalall.jpeg", alt: "All Natal" },
-  { src: "/galeri/gambar1.png", alt: "Firstgath regsum 2026"},
-  { alt: "Dokumentasi Natal Oikumene, foto 3" },
-  { alt: "Dokumentasi Natal Oikumene, foto 4" },
-  { alt: "Dokumentasi Natal Oikumene, foto 5" },
+  { src: "/galeri/gambar1.JPG", alt: "lupa apa1"},
+  { src: "/galeri/gambar2.JPG", alt: "lupa apa2"},
+  { src: "/galeri/gambar3.JPG", alt: "lupa apa3"},
+  { src: "/galeri/gambar4.JPG", alt: "lupa apa4"},
 ];

@@ -13,17 +13,17 @@ export const event: EventInfo = {
 
   // Draf deskripsi. Silakan ubah sesuai gaya bahasa panitia.
   description:
-    "Perayaan Natal bersama seluruh mahasiswa PKN STAN. Satu ibadah, satu perayaan, untuk saling menguatkan di penghujung tahun.",
+    "Perayaan Natal bersama seluruh mahasiswa PKN STAN. Sebagai momentum untuk beribadah, berbagi sukacita, dan mempererat kebersamaan dalam kasih Kristus.",
 
   campusName: "PKN STAN",
 
-  date: "7 Februri 2027",
+  date: "7 Februari 2027",
   time: "15.30 WIB",
   location: "Gedung G PKN STAN",
 
   // Draf bagian "Tentang". Tiap string menjadi satu paragraf.
   about: [
-    "Natal Oikumene adalah perayaan Natal yang diselenggarakan oleh PMK dan KMK STAN yamg bertujuan untuk mengajak seluruh mahasiswa di PKN STAN berkumpul dalam satu ibadah bersama merayakan natal.",
+    "Natal Oikumene adalah perayaan Natal yang diselenggarakan oleh PMK dan KMK STAN sebagai wadah bagi seluruh mahasiswa PKN STAN untuk berkumpul dalam satu persekutuan, beribadah bersama, serta merayakan kasih dan sukacita Natal",
     "Website ini memuat informasi acara, rundown, panduan liturgi, dan cara mendaftar, supaya mahasiswa, panitia, dan tamu undangan tahu apa yang perlu disiapkan.",
   ],
 
@@ -57,7 +57,6 @@ export const event: EventInfo = {
 
   contact: {
     whatsapp: "089505045019",
-    email: "[Email panitia]",
     instagram: "@natal.oikumene",
   },
 
