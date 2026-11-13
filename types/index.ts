@@ -11,7 +11,6 @@ export type RundownItem = {
   time: string; // contoh: "09.00 WIB"
   title: string;
   description: string;
-  pic: string; // penanggung jawab
 };
 
 // Hasil cek status yang dikirim API ke browser.

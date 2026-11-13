@@ -57,6 +57,7 @@ export const event: EventInfo = {
 
   contact: {
     whatsapp: "089505045019",
+    email: "",
     instagram: "@natal.oikumene",
   },
 
