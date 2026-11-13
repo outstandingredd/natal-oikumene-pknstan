@@ -37,7 +37,6 @@ export function Timeline({ items }: { items: RundownItem[] }) {
               <p className={`font-semibold tracking-wide ${a.time}`}>{item.time}</p>
               <h3 className="mt-1 font-serif text-xl leading-snug text-paper sm:text-2xl">{item.title}</h3>
               {item.description && <p className="mt-2 leading-relaxed text-paper/75">{item.description}</p>}
-              {item.pic && <p className="mt-3 text-sm text-paper/55">PJ: {item.pic}</p>}
             </div>
           </li>
         );
